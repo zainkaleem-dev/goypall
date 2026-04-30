@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Admin Login — <?php echo escape(settings('site_name', 'Pitch')); ?></title>
-<link rel="stylesheet" href="/assets/css/admin.css?v=<?php echo APP_VERSION; ?>">
+<link rel="stylesheet" href="<?php echo SITE_URL; ?>/assets/css/admin.css?v=<?php echo APP_VERSION; ?>">
 </head>
 <body>
 
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
         
         <div style="text-align:center;margin-top:24px;color:#9ca3af;font-size:12px;">
-            <a href="/" style="color:#6b7280;">← Back to site</a>
+            <a href="<?php echo SITE_URL; ?>/" style="color:#6b7280;">← Back to site</a>
         </div>
     </div>
 </div>

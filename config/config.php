@@ -12,7 +12,7 @@ define('DB_PASS', '');
 define('DB_PREFIX', 'px_');
 
 // Site
-define('SITE_URL', 'https://clickbank.goypall.net');
+define('SITE_URL', 'http://localhost/goypall');
 define('SITE_NAME', 'CryptoExchange Pro');
 
 // Security
@@ -24,8 +24,8 @@ define('SESSION_LIFETIME', 3600 * 8); // 8 hours
 define('SESSION_NAME', 'PX_SESSION');
 
 // Environment
-define('APP_ENV', 'production');
-define('APP_DEBUG', false);
+define('APP_ENV', 'development');
+define('APP_DEBUG', true);
 define('APP_VERSION', '1.0.0');
 
 // Paths

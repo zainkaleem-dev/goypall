@@ -5,8 +5,7 @@
  */
 
 if (!is_admin_logged_in()) {
-    header('Location: /admin/login.php');
-    exit;
+    redirect('/admin/login.php');
 }
 
 $adminUser = current_admin();
@@ -16,7 +15,7 @@ $siteName = settings('site_name', 'Pitch Admin');
 function admin_nav_link($script, $label, $icon = '') {
     global $currentScript;
     $active = ($currentScript === $script) ? 'active' : '';
-    return '<a href="/admin/' . $script . '" class="admin-nav-link ' . $active . '">' 
+    return '<a href="' . SITE_URL . '/admin/' . $script . '" class="admin-nav-link ' . $active . '">' 
          . ($icon ? '<span class="ico">' . $icon . '</span>' : '') 
          . '<span>' . htmlspecialchars($label) . '</span></a>';
 }
@@ -26,7 +25,7 @@ function admin_nav_link($script, $label, $icon = '') {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Admin — <?php echo escape($siteName); ?></title>
-<link rel="stylesheet" href="/assets/css/admin.css?v=<?php echo APP_VERSION; ?>">
+<link rel="stylesheet" href="<?php echo SITE_URL; ?>/assets/css/admin.css?v=<?php echo APP_VERSION; ?>">
 </head>
 <body>
 
@@ -54,13 +53,13 @@ function admin_nav_link($script, $label, $icon = '') {
             $unreadMsgCount = $db->fetch("SELECT COUNT(*) c FROM " . DB_PREFIX . "contact_messages WHERE status = 'unread'")['c'] ?? 0;
             $msgBadge = $unreadMsgCount > 0 ? ' <span style="background:#dc2626;color:#fff;padding:1px 7px;border-radius:99px;font-size:10px;font-weight:700;margin-left:4px;">' . $unreadMsgCount . '</span>' : '';
             ?>
-            <a href="/admin/messages.php" class="admin-nav-link <?php echo $currentScript === 'messages.php' ? 'active' : ''; ?>">
+            <a href="<?php echo SITE_URL; ?>/admin/messages.php" class="admin-nav-link <?php echo $currentScript === 'messages.php' ? 'active' : ''; ?>">
                 <span class="ico">📬</span><span>Messages<?php echo $msgBadge; ?></span>
             </a>
             
             <div class="nav-section">Account</div>
             <?php echo admin_nav_link('profile.php', 'My Profile', '👤'); ?>
-            <a href="/admin/logout.php" class="admin-nav-link"><span class="ico">🚪</span><span>Logout</span></a>
+            <a href="<?php echo SITE_URL; ?>/admin/logout.php" class="admin-nav-link"><span class="ico">🚪</span><span>Logout</span></a>
         </nav>
     </aside>
     
@@ -71,7 +70,7 @@ function admin_nav_link($script, $label, $icon = '') {
                 <button class="mobile-toggle" onclick="document.querySelector('.admin-sidebar').classList.toggle('open')" aria-label="Menu">☰</button>
             </div>
             <div class="topbar-right">
-                <a href="/" target="_blank" class="topbar-link">View Site ↗</a>
+                <a href="<?php echo SITE_URL; ?>/" target="_blank" class="topbar-link">View Site ↗</a>
                 <span class="topbar-user">👤 <?php echo escape($adminUser['name'] ?? $adminUser['email']); ?></span>
             </div>
         </header>

@@ -1,9 +1,9 @@
 RewriteEngine On
-RewriteBase /
+RewriteBase /goypall/
 
 # Redirect to HTTPS
-RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 # Don't rewrite real files or directories
 RewriteCond %{REQUEST_FILENAME} -f [OR]

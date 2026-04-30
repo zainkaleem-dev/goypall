@@ -27,13 +27,13 @@ function render_header($pageTitle = '', $metaDesc = '') {
 <meta name="description" content="<?php echo escape($desc); ?>">
 <?php if ($keywords): ?><meta name="keywords" content="<?php echo escape($keywords); ?>"><?php endif; ?>
 <?php if ($favicon): ?><link rel="icon" href="<?php echo escape($favicon); ?>"><?php endif; ?>
-<link rel="stylesheet" href="/assets/css/public.css?v=<?php echo APP_VERSION; ?>">
+<link rel="stylesheet" href="<?php echo SITE_URL; ?>/assets/css/public.css?v=<?php echo APP_VERSION; ?>">
 </head>
 <body>
 
 <header class="site-header">
     <div class="container header-inner">
-        <a href="/" class="brand">
+        <a href="<?php echo SITE_URL; ?>/" class="brand">
             <?php if ($logo): ?>
                 <img src="<?php echo escape($logo); ?>" alt="<?php echo escape($siteName); ?>" class="brand-logo">
             <?php else: ?>
@@ -47,13 +47,13 @@ function render_header($pageTitle = '', $metaDesc = '') {
         </button>
         
         <nav class="site-nav">
-            <a href="/" class="nav-link">Home</a>
-            <a href="/faq" class="nav-link">FAQ</a>
-            <a href="/contact" class="nav-link">Contact</a>
-            <a href="/page/refund" class="nav-link">Refund</a>
-            <a href="/page/privacy" class="nav-link">Privacy</a>
-            <a href="/page/terms" class="nav-link">Terms</a>
-            <a href="/support" class="nav-link nav-support">Support Portal</a>
+            <a href="<?php echo SITE_URL; ?>/" class="nav-link">Home</a>
+            <a href="<?php echo SITE_URL; ?>/faq" class="nav-link">FAQ</a>
+            <a href="<?php echo SITE_URL; ?>/contact" class="nav-link">Contact</a>
+            <a href="<?php echo SITE_URL; ?>/page/refund" class="nav-link">Refund</a>
+            <a href="<?php echo SITE_URL; ?>/page/privacy" class="nav-link">Privacy</a>
+            <a href="<?php echo SITE_URL; ?>/page/terms" class="nav-link">Terms</a>
+            <a href="<?php echo SITE_URL; ?>/support" class="nav-link nav-support">Support Portal</a>
         </nav>
     </div>
 </header>
@@ -83,19 +83,19 @@ function render_footer() {
             <div class="footer-col">
                 <h4>Quick Links</h4>
                 <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/faq">FAQ</a></li>
-                    <li><a href="/contact">Contact Us</a></li>
-                    <li><a href="/page/full-description">Full Description</a></li>
+                    <li><a href="<?php echo SITE_URL; ?>/">Home</a></li>
+                    <li><a href="<?php echo SITE_URL; ?>/faq">FAQ</a></li>
+                    <li><a href="<?php echo SITE_URL; ?>/contact">Contact Us</a></li>
+                    <li><a href="<?php echo SITE_URL; ?>/page/full-description">Full Description</a></li>
                     <li><a href="<?php echo escape($supportUrl); ?>" target="_blank" rel="noopener">Support ↗</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h4>Legal</h4>
                 <ul>
-                    <li><a href="/page/terms">Terms of Use</a></li>
-                    <li><a href="/page/privacy">Privacy Policy</a></li>
-                    <li><a href="/page/refund">Refund Policy</a></li>
+                    <li><a href="<?php echo SITE_URL; ?>/page/terms">Terms of Use</a></li>
+                    <li><a href="<?php echo SITE_URL; ?>/page/privacy">Privacy Policy</a></li>
+                    <li><a href="<?php echo SITE_URL; ?>/page/refund">Refund Policy</a></li>
                 </ul>
             </div>
         </div>
@@ -105,7 +105,7 @@ function render_footer() {
     </div>
 </footer>
 
-<script src="/assets/js/public.js?v=<?php echo APP_VERSION; ?>"></script>
+<script src="<?php echo SITE_URL; ?>/assets/js/public.js?v=<?php echo APP_VERSION; ?>"></script>
 </body>
 </html>
 <?php

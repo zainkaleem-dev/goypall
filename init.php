@@ -108,6 +108,9 @@ function admin_log($action, $details = '') {
 }
 
 function redirect($url) {
+    if (strpos($url, '/') === 0 && strpos($url, '//') !== 0) {
+        $url = SITE_URL . $url;
+    }
     header('Location: ' . $url);
     exit;
 }

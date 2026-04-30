@@ -155,7 +155,7 @@ window.PITCH_SCREENSHOTS = <?php echo json_encode(array_map(function($s){
             <div class="info-icon">🛠</div>
             <p class="info-text info-promise">
                 <strong>We provide paid customization.</strong> 
-                Need custom features or modifications? <a href="/contact" style="color:#f0b90b;text-decoration:underline;">Contact us</a> for a quote.
+                Need custom features or modifications? <a href="<?php echo SITE_URL; ?>/contact" style="color:#f0b90b;text-decoration:underline;">Contact us</a> for a quote.
             </p>
         </div>
         
@@ -177,7 +177,7 @@ window.PITCH_SCREENSHOTS = <?php echo json_encode(array_map(function($s){
             <?php echo settings('short_description'); ?>
         </div>
         <div class="description-actions">
-            <a href="/page/full-description" class="btn btn-outline">
+            <a href="<?php echo SITE_URL; ?>/page/full-description" class="btn btn-outline">
                 📖 Read Full Detailed Description
             </a>
         </div>
