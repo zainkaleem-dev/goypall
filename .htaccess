@@ -1,0 +1,45 @@
+RewriteEngine On
+RewriteBase /
+
+# Redirect to HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Don't rewrite real files or directories
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Don't rewrite admin folder
+RewriteRule ^admin/ - [L]
+
+# Pretty URLs
+RewriteRule ^faq/?$ index.php?page=faq [L,QSA]
+RewriteRule ^page/(.+)$ index.php?page=page&slug=$1 [L,QSA]
+RewriteRule ^contact/?$ index.php?page=contact [L,QSA]
+RewriteRule ^checkout/?$ index.php?page=checkout [L,QSA]
+RewriteRule ^thank-you/?$ index.php?page=thank-you [L,QSA]
+RewriteRule ^download/?$ index.php?page=download [L,QSA]
+RewriteRule ^support/?$ index.php?page=support [L,QSA]
+RewriteRule ^payram-checkout/?$ index.php?page=payram-checkout [L,QSA]
+RewriteRule ^payram-webhook/?$ index.php?page=payram-webhook [L,QSA]
+RewriteRule ^nowpayments-checkout/?$ index.php?page=nowpayments-checkout [L,QSA]
+RewriteRule ^nowpayments-webhook/?$ index.php?page=nowpayments-webhook [L,QSA]
+
+# Catch-all for unknown routes (goes to homepage)
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# Security headers
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Protect sensitive directories
+<IfModule mod_rewrite.c>
+    RewriteRule ^config/ - [F,L]
+    RewriteRule ^logs/ - [F,L]
+    RewriteRule ^includes/ - [F,L]
+</IfModule>

@@ -1,0 +1,54 @@
+[26-Apr-2026 16:47:39 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'customer_id' in 'WHERE' in /home/l5d6k17prkfn/public_html/product.goypall.net/includes/Database.php:30
+Stack trace:
+#0 /home/l5d6k17prkfn/public_html/product.goypall.net/includes/Database.php(30): PDO->prepare()
+#1 /home/l5d6k17prkfn/public_html/product.goypall.net/includes/Database.php(40): Database->query()
+#2 /home/l5d6k17prkfn/public_html/product.goypall.net/public/support.php(309): Database->fetchAll()
+#3 /home/l5d6k17prkfn/public_html/product.goypall.net/index.php(29): require_once('/home/l5d6k17pr...')
+#4 {main}
+  thrown in /home/l5d6k17prkfn/public_html/product.goypall.net/includes/Database.php on line 30
+[26-Apr-2026 16:48:05 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ticket_number' in 'INSERT INTO' in /home/l5d6k17prkfn/public_html/product.goypall.net/includes/Database.php:47
+Stack trace:
+#0 /home/l5d6k17prkfn/public_html/product.goypall.net/includes/Database.php(47): PDO->prepare()
+#1 /home/l5d6k17prkfn/public_html/product.goypall.net/public/support.php(86): Database->insert()
+#2 /home/l5d6k17prkfn/public_html/product.goypall.net/index.php(29): require_once('/home/l5d6k17pr...')
+#3 {main}
+  thrown in /home/l5d6k17prkfn/public_html/product.goypall.net/includes/Database.php on line 47
+[26-Apr-2026 16:51:32 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'customer_id' in 'WHERE' in /home/l5d6k17prkfn/public_html/product.goypall.net/includes/Database.php:30
+Stack trace:
+#0 /home/l5d6k17prkfn/public_html/product.goypall.net/includes/Database.php(30): PDO->prepare()
+#1 /home/l5d6k17prkfn/public_html/product.goypall.net/includes/Database.php(40): Database->query()
+#2 /home/l5d6k17prkfn/public_html/product.goypall.net/public/support.php(309): Database->fetchAll()
+#3 /home/l5d6k17prkfn/public_html/product.goypall.net/index.php(29): require_once('/home/l5d6k17pr...')
+#4 {main}
+  thrown in /home/l5d6k17prkfn/public_html/product.goypall.net/includes/Database.php on line 30
+[26-Apr-2026 16:51:33 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'customer_id' in 'WHERE' in /home/l5d6k17prkfn/public_html/product.goypall.net/includes/Database.php:30
+Stack trace:
+#0 /home/l5d6k17prkfn/public_html/product.goypall.net/includes/Database.php(30): PDO->prepare()
+#1 /home/l5d6k17prkfn/public_html/product.goypall.net/includes/Database.php(40): Database->query()
+#2 /home/l5d6k17prkfn/public_html/product.goypall.net/public/support.php(309): Database->fetchAll()
+#3 /home/l5d6k17prkfn/public_html/product.goypall.net/index.php(29): require_once('/home/l5d6k17pr...')
+#4 {main}
+  thrown in /home/l5d6k17prkfn/public_html/product.goypall.net/includes/Database.php on line 30
+[26-Apr-2026 16:51:38 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'customer_id' in 'WHERE' in /home/l5d6k17prkfn/public_html/product.goypall.net/includes/Database.php:30
+Stack trace:
+#0 /home/l5d6k17prkfn/public_html/product.goypall.net/includes/Database.php(30): PDO->prepare()
+#1 /home/l5d6k17prkfn/public_html/product.goypall.net/includes/Database.php(40): Database->query()
+#2 /home/l5d6k17prkfn/public_html/product.goypall.net/public/support.php(309): Database->fetchAll()
+#3 /home/l5d6k17prkfn/public_html/product.goypall.net/index.php(29): require_once('/home/l5d6k17pr...')
+#4 {main}
+  thrown in /home/l5d6k17prkfn/public_html/product.goypall.net/includes/Database.php on line 30
+[26-Apr-2026 17:08:19 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'customer_id' in 'WHERE' in /home/l5d6k17prkfn/public_html/product.goypall.net/includes/Database.php:30
+Stack trace:
+#0 /home/l5d6k17prkfn/public_html/product.goypall.net/includes/Database.php(30): PDO->prepare()
+#1 /home/l5d6k17prkfn/public_html/product.goypall.net/includes/Database.php(40): Database->query()
+#2 /home/l5d6k17prkfn/public_html/product.goypall.net/public/support.php(309): Database->fetchAll()
+#3 /home/l5d6k17prkfn/public_html/product.goypall.net/index.php(29): require_once('/home/l5d6k17pr...')
+#4 {main}
+  thrown in /home/l5d6k17prkfn/public_html/product.goypall.net/includes/Database.php on line 30
+[26-Apr-2026 17:08:33 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ticket_number' in 'INSERT INTO' in /home/l5d6k17prkfn/public_html/product.goypall.net/includes/Database.php:47
+Stack trace:
+#0 /home/l5d6k17prkfn/public_html/product.goypall.net/includes/Database.php(47): PDO->prepare()
+#1 /home/l5d6k17prkfn/public_html/product.goypall.net/public/support.php(86): Database->insert()
+#2 /home/l5d6k17prkfn/public_html/product.goypall.net/index.php(29): require_once('/home/l5d6k17pr...')
+#3 {main}
+  thrown in /home/l5d6k17prkfn/public_html/product.goypall.net/includes/Database.php on line 47

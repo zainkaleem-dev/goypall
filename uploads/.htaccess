@@ -1,0 +1,5 @@
+# Allow image files only
+<FilesMatch "\.(php|phtml|php3|php4|php5|phps|html|htm)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
