@@ -30,35 +30,40 @@ if ($_GET['resend'] ?? '' === '1' && $orderNumber) {
     $order = $db->fetch("SELECT * FROM " . DB_PREFIX . "orders WHERE order_number = ?", [$orderNumber]);
     
     if ($order && $order['status'] === 'pending' && $order['stripe_session_id']) {
-        // Verify with Stripe
-        $ch = curl_init('https://api.stripe.com/v1/checkout/sessions/' . urlencode($order['stripe_session_id']));
-        curl_setopt_array($ch, [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_USERPWD => $stripeSecret . ':',
-            CURLOPT_SSL_VERIFYPEER => true,
-        ]);
-        $response = curl_exec($ch);
-        $curlError = curl_error($ch);
-        curl_close($ch);
-        
-        $session = json_decode($response, true);
-        
-        if (!empty($session['payment_status']) && $session['payment_status'] === 'paid') {
-            $db->query("UPDATE " . DB_PREFIX . "orders SET status = 'paid', updated_at = NOW() WHERE id = ?", [$order['id']]);
-            $order['status'] = 'paid';
-            $verified = true;
-            
-            // Send download email
-            $result = sendDownloadEmail($order);
-            $emailSent = ($result === true);
-            $emailError = $emailSent ? '' : (string)$result;
-            
-            $logDir = ROOT_PATH . '/logs';
-            if (!is_dir($logDir)) @mkdir($logDir, 0755, true);
-            @file_put_contents($logDir . '/email_log.txt', date('Y-m-d H:i:s') . ' | To: ' . $order['email'] . ' | Result: ' . ($emailSent ? 'SUCCESS' : 'FAILED: ' . $emailError) . "\n", FILE_APPEND);
-            @file_put_contents($logDir . '/purchases.log', date('Y-m-d H:i:s') . ' | ' . $order['email'] . ' | $' . $order['amount'] . ' | ' . $orderNumber . "\n", FILE_APPEND);
+        if (strpos($order['stripe_session_id'], 'np_') === 0 || strpos($order['stripe_session_id'], 'pr_') === 0) {
+            // It's an async crypto/PayRam payment, wait for webhook
+            $processing = true;
         } else {
-            $emailError = 'Stripe: ' . ($session['payment_status'] ?? 'unknown') . ' | curl: ' . $curlError;
+            // Verify with Stripe
+            $ch = curl_init('https://api.stripe.com/v1/checkout/sessions/' . urlencode($order['stripe_session_id']));
+            curl_setopt_array($ch, [
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_USERPWD => $stripeSecret . ':',
+                CURLOPT_SSL_VERIFYPEER => true,
+            ]);
+            $response = curl_exec($ch);
+            $curlError = curl_error($ch);
+            curl_close($ch);
+            
+            $session = json_decode($response, true);
+            
+            if (!empty($session['payment_status']) && $session['payment_status'] === 'paid') {
+                $db->query("UPDATE " . DB_PREFIX . "orders SET status = 'paid', updated_at = NOW() WHERE id = ?", [$order['id']]);
+                $order['status'] = 'paid';
+                $verified = true;
+                
+                // Send download email
+                $result = sendDownloadEmail($order);
+                $emailSent = ($result === true);
+                $emailError = $emailSent ? '' : (string)$result;
+                
+                $logDir = ROOT_PATH . '/logs';
+                if (!is_dir($logDir)) @mkdir($logDir, 0755, true);
+                @file_put_contents($logDir . '/email_log.txt', date('Y-m-d H:i:s') . ' | To: ' . $order['email'] . ' | Result: ' . ($emailSent ? 'SUCCESS' : 'FAILED: ' . $emailError) . "\n", FILE_APPEND);
+                @file_put_contents($logDir . '/purchases.log', date('Y-m-d H:i:s') . ' | ' . $order['email'] . ' | $' . $order['amount'] . ' | ' . $orderNumber . "\n", FILE_APPEND);
+            } else {
+                $emailError = 'Stripe: ' . ($session['payment_status'] ?? 'unknown') . ' | curl: ' . $curlError;
+            }
         }
     } elseif ($order && $order['status'] === 'paid') {
         $verified = true;
@@ -197,12 +202,32 @@ function sendDownloadEmail($order) {
         </div>
     </div>
 
+<?php elseif (!empty($processing) && $order): ?>
+
+    <div class="card" style="text-align:center;">
+        <div class="icon-big">⏳</div>
+        <h1 style="color:#f59e0b;">Payment Processing</h1>
+        <p class="sub">Your payment is currently being confirmed on the network.</p>
+        
+        <div class="detail-box" style="text-align:left;">
+            <div class="dr"><span class="l">Order Number</span><span class="v">#<?php echo escape($order['order_number']); ?></span></div>
+            <div class="dr"><span class="l">Status</span><span class="v" style="color:#f59e0b;">Awaiting Confirmation</span></div>
+        </div>
+        
+        <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:20px;margin-bottom:16px;">
+            <p style="color:#92400e;font-size:14px;margin-bottom:8px;"><strong>Don't worry!</strong> Crypto and external payments can take a few minutes to confirm.</p>
+            <p style="color:#6b7280;font-size:12px;">You can leave this page. We will automatically email your download link to <strong><?php echo escape($order['email']); ?></strong> once the payment is confirmed.</p>
+        </div>
+        
+        <button onclick="window.location.reload();" style="display:inline-block;background:#f0b90b;color:#1a1a2e;border:none;padding:12px 30px;border-radius:8px;font-size:15px;font-weight:bold;cursor:pointer;">🔄 Check Status Again</button>
+    </div>
+
 <?php else: ?>
 
     <div class="card fail">
         <div class="icon-big">⚠️</div>
         <h1>Payment Not Verified</h1>
-        <p>We couldn't verify your payment. This could mean the payment is still processing.</p>
+        <p>We couldn't verify your payment. This could mean the payment is still processing or was canceled.</p>
         <p>If you completed payment, wait a moment and refresh this page.</p>
         <?php if ($emailError): ?><div class="debug"><?php echo escape($emailError); ?></div><?php endif; ?>
         <p style="margin-top:16px;">

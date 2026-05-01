@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../init.php';
 
 $stripeSecret = settings('stripe_secret_key');
+$stripeEnabled = settings('stripe_enabled') === '1';
 $payramEnabled = settings('payram_enabled') === '1';
 $payramUrl = settings('payram_api_url');
 $payramKey = settings('payram_api_key');
@@ -13,7 +14,7 @@ $price = (float)(settings('product_price') ?: 299);
 $siteName = settings('site_name') ?: 'CryptoExchange';
 $error = '';
 
-$hasStripe = !empty($stripeSecret);
+$hasStripe = $stripeEnabled && !empty($stripeSecret);
 $hasPayram = $payramEnabled && !empty($payramUrl) && !empty($payramKey);
 $hasNP = $npEnabled && !empty($npApiKey);
 
@@ -234,10 +235,10 @@ function http_build_query_nested($data, $prefix = '') {
                     <?php if ($hasPayram): ?>
                     <label class="gw-opt<?php echo $defaultGW === 'payram' ? ' selected' : ''; ?>" onclick="selGW(this,'payram')">
                         <input type="radio" name="gateway" value="payram"<?php echo $defaultGW === 'payram' ? ' checked' : ''; ?>>
-                        <div class="gw-icon">🪙</div>
-                        <div class="gw-name">Card → Crypto</div>
-                        <div class="gw-desc">175+ payment methods</div>
-                        <div class="gw-badge">Settle in USDC</div>
+                        <div class="gw-icon">💳</div>
+                        <div class="gw-name">Credit / Debit Card</div>
+                        <div class="gw-desc">Secure Global Payments</div>
+                        <div class="gw-badge">Fast & Secure</div>
                     </label>
                     <?php endif; ?>
                 </div>

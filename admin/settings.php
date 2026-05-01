@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'seo_description','seo_keywords',
             'contact_phone','contact_whatsapp_url','contact_telegram_url',
             'contact_page_title','contact_page_subtitle',
-            'stripe_public_key','stripe_secret_key','product_price','product_name',
+            'stripe_public_key','stripe_secret_key','stripe_enabled','product_price','product_name',
             'download_file_url','download_enabled',
             'smtp_host','smtp_port','smtp_user','smtp_pass','smtp_encryption','smtp_from_email','smtp_from_name',
             'payram_api_url','payram_api_key','payram_enabled','payment_gateway',
@@ -180,6 +180,11 @@ include __DIR__ . '/_header.php';
     </div>
 
     <div class="card"><h2>💳 Stripe</h2>
+        <div class="form-group"><label>Enable Stripe</label>
+        <select name="stripe_enabled">
+            <option value="0" <?php echo ($s('stripe_enabled') ?: '0') === '0' ? 'selected' : ''; ?>>❌ Disabled</option>
+            <option value="1" <?php echo $s('stripe_enabled') === '1' ? 'selected' : ''; ?>>✅ Enabled</option>
+        </select></div>
         <div class="form-group"><label>Publishable Key</label><input type="text" name="stripe_public_key" value="<?php echo escape($s('stripe_public_key')); ?>" placeholder="pk_live_..."></div>
         <div class="form-group"><label>Secret Key</label><input type="password" name="stripe_secret_key" value="<?php echo escape($s('stripe_secret_key')); ?>" placeholder="sk_live_..."></div>
     </div>
